@@ -103,9 +103,9 @@ grep "Query= " subset*.br | wc -l
 cat subset*br > myblast.br
 rm subset*
 
-# for trinity-assembled transcriptomes: annotating with isogroups
-grep ">" Pclivosa.fasta | perl -pe 's/>Pclivosa(\d+)(\S+)\s.+/Pclivosa$1$2\tPclivosa$1/'>Pclivosa_seq2iso.tab
-cat Pclivosa.fasta | perl -pe 's/>Pclivosa(\d+)(\S+).+/>Pclivosa$1$2 gene=Pclivosa$1/'>Pclivosa_iso.fasta
+# Annotating with isogroups
+grep ">" Pclivosa.fasta | perl -pe 's/>Pseudodiploria(\d+)(\S+).+/Pseudodiploria$1$2\tPseudodiploria$1/'>Pclivosa_seq2iso.tab
+cat Pclivosa.fasta | perl -pe 's/>Pseudodiploria(\d+)(\S+)/>Pseudodiploria$1$2 gene=Pseudodiploria$1/'>Pclivosa_iso.fasta
 
 
 #-------------------------
@@ -129,10 +129,10 @@ cd /path/to/local/directory
 scp mstudiva@koko-login.hpc.fau.edu:~/path/to/HPC/directory/\*_out_PRO.fas .
 
 # copy link to job ID status and output file, paste it below instead of current link:
-# http://eggnog-mapper.embl.de/job_status?jobname=MM_tlipouzn
+# http://eggnog-mapper.embl.de/job_status?jobname=MM_wo5a5jlp
 
 # once it is done, download results to HPC:
-wget http://eggnog-mapper.embl.de/MM_tlipouzn/out.emapper.annotations
+wget http://eggnog-mapper.embl.de/MM_wo5a5jlp/out.emapper.annotations
 
 # GO:
 awk -F "\t" 'BEGIN {OFS="\t" }{print $1,$10 }' out.emapper.annotations | grep GO | perl -pe 's/,/;/g' >Pclivosa_iso2go.tab
@@ -164,10 +164,10 @@ cd /path/to/local/directory
 scp mstudiva@koko-login.hpc.fau.edu:~/path/to/HPC/directory/\*4kegg.fasta .
 # use web browser to submit 4kegg.fasta file to KEGG's KAAS server (http://www.genome.jp/kegg/kaas/)
 # select SBH method, upload nucleotide query
-https://www.genome.jp/kaas-bin/kaas_main?mode=user&id=1674591754&key=Azr_Y3sd # Avila-Magana
+https://www.genome.jp/kaas-bin/kaas_main?mode=user&id=1692993657&key=h8IrRWSR
 
 # Once it is done, download to HPC - it is named query.ko by default
-wget https://www.genome.jp/tools/kaas/files/dl/1674591754/query.ko # Avila-Magana
+wget https://www.genome.jp/tools/kaas/files/dl/1692993657/query.ko
 
 # selecting only the lines with non-missing annotation:
 cat query.ko | awk '{if ($2!="") print }' > Pclivosa_iso2kegg.tab
